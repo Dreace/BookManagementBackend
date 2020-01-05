@@ -1,0 +1,7 @@
+apscheduler
+pymysql
+flask
+coloredlogs
+gevent
+Flask-Compress
+flask_cors
