@@ -40,17 +40,16 @@ def login(name, password):
         code = -1
     else:
         try:
-            sql = "SELECT admin_id,`name`,permission FROM admin WHERE `name`='%s' AND `password` = '%s'" % (
+            sql = "SELECT admin_id,`name` FROM admin WHERE `name`='%s' AND `password` = '%s'" % (
                 name, password)
             db.ping(reconnect=True)
             cursor.execute(sql)
             db_res = cursor.fetchone()
             if db_res and db_res[1] == name:
-                session_raw = "time=%s;admin_id=%s;permission=%s" % (time.time(), name, db_res[1])
+                session_raw = "time=%s;admin_id=%s" % (time.time(), name)
                 res_data = {
                     "admin_id": db_res[0],
-                    "name": db_res[1],
-                    "permission": db_res[2],
+                    "name": db_res[1]
                 }
                 session_id = hashlib.md5(session_raw.encode()).hexdigest()
                 session.set(session_id, json.dumps(res_data), ex=86400)

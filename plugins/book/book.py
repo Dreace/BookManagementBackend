@@ -55,7 +55,7 @@ def get_book_list(keywords, keywords_type):
     book_connect = pymysql.connect(mysql_host, mysql_user, mysql_password, "book", charset='utf8')
     book_cursor = book_connect.cursor()
     try:
-        sql = "SELECT book.book_id,ISBN,`name`,author,price,press,is_repaid FROM book LEFT JOIN bookslip slip1 ON " \
+        sql = "SELECT DISTINCT book.book_id,ISBN,`name`,author,price,press,is_repaid FROM book LEFT JOIN bookslip slip1 ON " \
               "slip1.book_id=book.book_id WHERE book.`%s` LIKE '%%%s%%' AND NOT EXISTS (SELECT * FROM bookslip slip2 " \
               "WHERE slip1.book_id=slip2.book_id AND slip1.is_repaid=1 AND slip2.is_repaid=0) " \
               "ORDER BY book.book_id DESC LIMIT 50" \

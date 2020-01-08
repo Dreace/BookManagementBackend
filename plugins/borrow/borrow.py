@@ -137,12 +137,12 @@ def return_book(book_id):
     data = ""
     try:
         sql = "UPDATE bookslip SET is_repaid=1,return_time=%s WHERE book_id='%s'" % (int(time.time()), book_id)
-        db.ping(reconnect=True)
         cursor.execute(sql)
         if db.affected_rows() > 0:
             message = "还书成功"
         else:
-            message = "没有修改任何记录"
+            code = -1
+            message = "没有该书借出记录"
         db.commit()
     except:
         logging.error(traceback.format_exc())

@@ -14,8 +14,8 @@ from .config import cursor, db
 @api.route('/GetCardList', methods=['GET'])
 def handle_get_card_list():
     keywords = request.args.get("keywords")
-    type = request.args.get("type")
-    res = get_card_list(keywords, type)
+    keywords_type = request.args.get("keywords_type")
+    res = get_card_list(keywords, keywords_type)
     resp = Response(json.dumps(res), mimetype='application/json')
     return resp
 
